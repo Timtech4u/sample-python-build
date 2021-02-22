@@ -4,8 +4,8 @@ steps:
   args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
   # run tests
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["run", "-v", "~/workspace:/app", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest'"]
-artifacts:
-  objects:
-    location: 'gs://tim_tests'
-    paths: ['~/workspace/*.html']
+  args: ["run", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest'"]
+# artifacts:
+#   objects:
+#     location: 'gs://tim_tests'
+#     paths: ['*.html']
