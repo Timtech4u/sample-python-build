@@ -2,14 +2,10 @@ steps:
   # build & push the container image
 - name: "gcr.io/kaniko-project/executor:latest"
   args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
-  # run test with image
-- name: 'qnib/pytest'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    pip install -r requirements.txt
-    pytest
+  # run tests
+- name: 'docker.io/library/python:3.7'
+  entrypoint: /bin/sh
+  args: [-c, 'pip install -r requirements.txt', '&&', 'python -m pytest']
 artifacts:
   objects:
     location: 'gs://tim_tests'
