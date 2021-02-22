@@ -6,6 +6,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ["run", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest'"]
 artifacts:
-objects:
+  objects:
      location: 'gs://tim_tests'
      paths: ['*.html']
