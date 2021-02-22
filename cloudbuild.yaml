@@ -1,7 +1,7 @@
 steps:
   # build & push the container image
 - name: "gcr.io/kaniko-project/executor:latest"
-  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
+  args: ["--cache=true", "--cache-ttl=48h", "--dockerfile=Dockerfile", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
   # pull earlier image
 - name: 'gcr.io/cloud-builders/docker'
   args: ["pull", "--cache-from", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
