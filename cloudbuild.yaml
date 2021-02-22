@@ -5,7 +5,11 @@ steps:
   # run test with image
 - name: 'qnib/pytest'
   entrypoint: 'bash'
-  args: ["-c", "'pytest'"]
+  args:
+  - '-c'
+  - |
+    pip install -r requirements.txt
+    pytest
 artifacts:
   objects:
     location: 'gs://tim_tests'
