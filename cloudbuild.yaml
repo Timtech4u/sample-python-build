@@ -2,9 +2,10 @@ steps:
   # build & push the container image
 - name: "gcr.io/kaniko-project/executor:latest"
   args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
-#   # pull earlier image
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ["pull", "--cache-from", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
   # run test with image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["run", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest'"]
+  args: ["run", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest --html=$REPO_NAME --self-contained-html'"]
+artifacts:
+  objects:
+    location: 'gs://tim_tests'
+    paths: ['*.html']
