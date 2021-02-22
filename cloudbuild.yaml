@@ -3,8 +3,9 @@ steps:
 - name: "gcr.io/kaniko-project/executor:latest"
   args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME"]
   # run test with image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ["run", "gcr.io/$PROJECT_ID/$REPO_NAME:$BRANCH_NAME", "sh", "-c", "'pytest'", "-v", "/:/app"]
+- name: 'qnib/pytest'
+  entrypoint: 'bash'
+  args: ["-c", "'pytest'"]
 artifacts:
   objects:
     location: 'gs://tim_tests'
